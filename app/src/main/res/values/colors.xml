@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="purple_200">#9575CD</color>
+    <color name="purple_500">#7E57C2</color>
+    <color name="purple_700">#7C4DFF</color>
+
+    <color name="grey_500">#272727</color>
+    <color name="grey_100">#BDBDBD</color>
+    <color name="grey_200">#3B3B3B</color>
+    <color name="black_background">#121212</color>
+
+    <color name="orange_200">#FFB74D</color>
+    <color name="orange_500">#FB8C00</color>
+
+
+    <color name="indigo_200">#3F51B5</color>
+    <color name="indigo_700">#303F9F</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="blue_200">#2196F3</color>
+    <color name="blue_500">#1976D2</color>
+    <color name="black_text_primary">#212121</color>
+    <color name="grey_text_secondary">#757575</color>
+
+    <color name="primaryColor">#0d47a1</color>
+    <color name="primaryLightColor">#5472d3</color>
+    <color name="primaryDarkColor">#002171</color>
+    <color name="secondaryColor">#18ffff</color>
+    <color name="secondaryLightColor">#76ffff</color>
+    <color name="secondaryDarkColor">#00cbcc</color>
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#000000</color>
+
+    //card_colors
+    <color name="colorCardBackground">#1bd29a</color>
+    <color name="colorFloatingCardBackground">#faa316</color>
+    //main_item_color
+    <color name="colorItemShare">#edb45b</color>
+    <color name="colorItemShowPassWord">#2f26d9</color>
+    <color name="colorItemEditCard">#009688</color>
+    <color name="colorItemAddCard">#01cd88</color>
+    <color name="colorItemDeleteCard">#7b22a2</color>
+    <color name="colorItemSetting">#ff5949</color>
+</resources>
