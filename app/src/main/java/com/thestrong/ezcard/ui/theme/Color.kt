@@ -9,6 +9,8 @@ val Purple700 = Color(0xFF673AB7)
 val Teal200 = Color(0xFF03DAC5)
 val Indigo200 = Color(0xFF3F51B5)
 
+val Grey100 = Color(0xFFC5CAE9)
+val Grey300 = Color(0xFF38393F)
 val Grey500 = Color(0xFF272727)
 val blackBackground= Color(0xFF121212)
 val Orange200= Color(0xFFFFB74D)
