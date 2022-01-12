@@ -1,4 +1,4 @@
-package com.thestrong.ezcard.screens.addCard
+package com.thestrong.ezcard.ui.screens.addCard
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.window.Dialog

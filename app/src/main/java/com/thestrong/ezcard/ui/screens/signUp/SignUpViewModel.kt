@@ -1,4 +1,4 @@
-package com.thestrong.ezcard.screens.signUp
+package com.thestrong.ezcard.ui.screens.signUp
 
 import androidx.lifecycle.ViewModel
 
