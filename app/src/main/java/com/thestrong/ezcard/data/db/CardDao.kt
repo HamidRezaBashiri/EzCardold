@@ -1,14 +1,11 @@
 package com.thestrong.ezcard.data.db
 
-import androidx.room.Delete
-import androidx.room.Insert
+import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
-import androidx.room.Query
-import androidx.room.Update
 import com.thestrong.ezcard.data.model.CreditCard
 import com.thestrong.ezcard.data.model.User
 import kotlinx.coroutines.flow.Flow
-
+@Dao
 interface CardDao {
 
     @Insert(onConflict = REPLACE)
@@ -32,5 +29,6 @@ interface CardDao {
     @Update()
     suspend fun updateUser(user: User)
 
-    fun getUser(user: User): Flow<User>
+    @Query("SELECT * FROM User WHERE name LIKE '%' || :userName || '%'")
+    fun getUser(userName: String): Flow<User>
 }

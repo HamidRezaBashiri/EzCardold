@@ -17,6 +17,6 @@ data class CreditCard(
     val pass2 :String?
 )
 {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     var id:Int?=null
 }
