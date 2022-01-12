@@ -4,6 +4,9 @@
     <color name="purple_200">#9575CD</color>
     <color name="purple_500">#7E57C2</color>
     <color name="purple_700">#7C4DFF</color>
+    <color name="purple_900">#3E1980</color>
+    <color name="purple1000">#22173E</color>
+
 
     <color name="grey_500">#272727</color>
     <color name="grey_100">#BDBDBD</color>

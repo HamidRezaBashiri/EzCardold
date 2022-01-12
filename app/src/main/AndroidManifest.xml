@@ -13,7 +13,7 @@
             android:name=".screens.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.EZCard.NoActionBar">
+            android:theme="@style/Theme.MySplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
