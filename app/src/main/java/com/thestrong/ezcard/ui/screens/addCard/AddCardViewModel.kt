@@ -1,4 +1,4 @@
-package com.thestrong.ezcard.screens.addCard
+package com.thestrong.ezcard.ui.screens.addCard
 
 import androidx.lifecycle.ViewModel
 

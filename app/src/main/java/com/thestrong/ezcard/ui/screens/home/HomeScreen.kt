@@ -1,4 +1,4 @@
-package com.thestrong.ezcard.screens.home
+package com.thestrong.ezcard.ui.screens.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

@@ -1,4 +1,4 @@
-package com.thestrong.ezcard.screens.settings
+package com.thestrong.ezcard.ui.screens.settings
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable

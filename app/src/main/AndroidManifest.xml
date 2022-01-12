@@ -3,6 +3,7 @@
     package="com.thestrong.ezcard">
 
     <application
+        android:name=".utils.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -10,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EZCard">
         <activity
-            android:name=".screens.MainActivity"
+            android:name="com.thestrong.ezcard.ui.screens.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.EZCard.NoActionBar">

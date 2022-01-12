@@ -1,4 +1,4 @@
-package com.thestrong.ezcard.screens
+package com.thestrong.ezcard.ui.screens
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -12,9 +12,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.thestrong.ezcard.screens.cardList.CardListScreen
-import com.thestrong.ezcard.screens.home.HomeScreen
-import com.thestrong.ezcard.screens.settings.SettingScreen
+import com.thestrong.ezcard.ui.screens.cardList.CardListScreen
+import com.thestrong.ezcard.ui.screens.home.HomeScreen
+import com.thestrong.ezcard.ui.screens.settings.SettingScreen
 import com.thestrong.ezcard.ui.common.BottomNavBar
 import com.thestrong.ezcard.ui.common.MyTopBar
 import com.thestrong.ezcard.ui.theme.EZCardTheme

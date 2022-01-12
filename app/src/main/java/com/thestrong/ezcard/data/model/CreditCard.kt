@@ -1,5 +1,10 @@
 package com.thestrong.ezcard.data.model
 
+import androidx.room.Entity
+import androidx.room.Index
+import androidx.room.PrimaryKey
+
+@Entity(indices = [Index(value = ["cardNumber","cardHolderName"])])
 data class CreditCard(
     val cardHolderName: String,
     val cardNumber: String,
@@ -11,3 +16,7 @@ data class CreditCard(
     val cardPass: String?,
     val pass2 :String?
 )
+{
+    @PrimaryKey
+    var id:Int?=null
+}

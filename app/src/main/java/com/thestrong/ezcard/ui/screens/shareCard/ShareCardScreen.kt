@@ -1,4 +1,4 @@
-package com.thestrong.ezcard.screens.shareCard
+package com.thestrong.ezcard.ui.screens.shareCard
 
 import androidx.compose.runtime.Composable
 
