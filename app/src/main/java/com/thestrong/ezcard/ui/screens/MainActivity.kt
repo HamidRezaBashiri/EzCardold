@@ -18,6 +18,8 @@ import com.thestrong.ezcard.ui.screens.home.HomeScreen
 import com.thestrong.ezcard.ui.screens.settings.SettingScreen
 import com.thestrong.ezcard.ui.common.BottomNavBar
 import com.thestrong.ezcard.ui.common.MyTopBar
+import com.thestrong.ezcard.ui.screens.signIn.LoginBox
+import com.thestrong.ezcard.ui.screens.signIn.SignInScreen
 import com.thestrong.ezcard.ui.theme.EZCardTheme
 
 class MainActivity : ComponentActivity() {
@@ -55,7 +57,8 @@ class MainActivity : ComponentActivity() {
                 HomeScreen()
             }
             composable(route = "wallet") {
-                CardListScreen()
+//                CardListScreen()
+                SignInScreen()
             }
             composable(route = "setting") {
                 SettingScreen()
