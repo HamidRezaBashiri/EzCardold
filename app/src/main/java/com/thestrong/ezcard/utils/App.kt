@@ -4,7 +4,7 @@ import android.app.Application
 import com.thestrong.ezcard.data.db.RoomBuilder
 import com.thestrong.ezcard.data.repository.login.LoginUser
 import com.thestrong.ezcard.data.repository.login.LoginUserImpl
-import com.thestrong.ezcard.ui.screens.signUp.SignUpViewModel
+import com.thestrong.ezcard.ui.screens.register.RegisterViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
@@ -16,7 +16,7 @@ class App:Application() {
         val moduleEzCard = module {
            single {RoomBuilder.getInstance(this@App)}
            factory <LoginUser>{LoginUserImpl(get())}
-           viewModel{SignUpViewModel(get())}
+           viewModel{ RegisterViewModel(get()) }
         }
         startKoin{
             androidContext(this@App)

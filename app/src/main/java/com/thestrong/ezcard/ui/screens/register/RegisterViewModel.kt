@@ -1,4 +1,4 @@
-package com.thestrong.ezcard.ui.screens.signUp
+package com.thestrong.ezcard.ui.screens.register
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,7 +8,7 @@ import com.thestrong.ezcard.data.model.User
 import com.thestrong.ezcard.data.repository.login.LoginUser
 import kotlinx.coroutines.launch
 
-class SignUpViewModel(private val loginUser: LoginUser) : ViewModel() {
+class RegisterViewModel(private val loginUser: LoginUser) : ViewModel() {
     private var _signUp = MutableLiveData<String>()
     val signUpLiveData: LiveData<String> = _signUp
 

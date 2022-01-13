@@ -13,13 +13,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.thestrong.ezcard.ui.screens.cardList.CardListScreen
 import com.thestrong.ezcard.ui.screens.home.HomeScreen
 import com.thestrong.ezcard.ui.screens.settings.SettingScreen
 import com.thestrong.ezcard.ui.common.BottomNavBar
 import com.thestrong.ezcard.ui.common.MyTopBar
-import com.thestrong.ezcard.ui.screens.signIn.LoginBox
-import com.thestrong.ezcard.ui.screens.signIn.SignInScreen
+import com.thestrong.ezcard.ui.screens.register.SignInScreen
 import com.thestrong.ezcard.ui.theme.EZCardTheme
 
 class MainActivity : ComponentActivity() {

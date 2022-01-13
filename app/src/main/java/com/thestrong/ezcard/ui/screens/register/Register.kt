@@ -1,4 +1,4 @@
-package com.thestrong.ezcard.ui.screens.signIn
+package com.thestrong.ezcard.ui.screens.register
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -11,6 +11,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -18,6 +19,7 @@ import com.thestrong.ezcard.ui.theme.LoginBoxBackgroundDark
 import com.thestrong.ezcard.ui.theme.LoginBoxBackgroundLight
 import com.thestrong.ezcard.ui.theme.SplashBackgroundDark
 import com.thestrong.ezcard.ui.theme.SplashBackgroundLight
+import org.koin.androidx.compose.viewModel
 
 
 @Composable
@@ -51,9 +53,9 @@ fun SignupBox() {
 
 @Composable
 fun LoginBox() {
-//    val viewModel by viewModel<SignUpViewModel>()
+    val viewModel by viewModel<RegisterViewModel>()
     val signInBoxBackground: androidx.compose.ui.graphics.Color
-    var textFiledState by remember {
+    var textFiledState by rememberSaveable {
         mutableStateOf("")
     }
 
@@ -73,7 +75,9 @@ fun LoginBox() {
             value = textFiledState,
             label = { Text(text = "کلمه عبور خود را وارد کنید") },
             onValueChange = { textFiledState = it })
-        Button(onClick = {}, modifier = Modifier.padding(8.dp),
+        Button(onClick = {
+//            viewModel.signUp()
+        }, modifier = Modifier.padding(8.dp),
             content = { Text(text = "test") })
     }
 }
