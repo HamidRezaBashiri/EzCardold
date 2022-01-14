@@ -5,10 +5,10 @@ import kotlinx.coroutines.flow.Flow
 
 interface LoginUser {
 
-    suspend fun addUser(user: User)
+    suspend fun signIn(user: User)
 
     suspend fun updateUser(user: User)
 
-    fun getUser(password: String): Flow<User>
+    fun login(password: String): Flow<Boolean>
 
 }

@@ -5,9 +5,9 @@ import com.thestrong.ezcard.data.model.User
 import kotlinx.coroutines.flow.Flow
 
 class LoginUserImpl(private val database: Database) : LoginUser {
-    override suspend fun addUser(user: User) = database.cardDao().addUser(user)
+    override suspend fun signIn(user: User) = database.cardDao().signIn(user)
 
     override suspend fun updateUser(user: User) = database.cardDao().updateUser(user)
 
-    override fun getUser(password: String): Flow<User> = database.cardDao().getUser(password)
+    override fun login(password: String): Flow<Boolean> = database.cardDao().login(password)
 }

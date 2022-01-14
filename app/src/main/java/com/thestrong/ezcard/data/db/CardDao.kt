@@ -24,11 +24,11 @@ interface CardDao {
     suspend fun updateCard(creditCard: CreditCard)
 
     @Insert(onConflict = REPLACE)
-    suspend fun addUser(user: User)
+    suspend fun signIn(user: User)
 
     @Update()
     suspend fun updateUser(user: User)
 
     @Query("SELECT * FROM User WHERE password LIKE '%' || :password || '%'")
-    fun getUser(password: String): Flow<User>
+    fun login(password: String): Flow<Boolean>
 }
