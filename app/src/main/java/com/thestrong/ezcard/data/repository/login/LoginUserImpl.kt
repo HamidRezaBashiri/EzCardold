@@ -9,5 +9,5 @@ class LoginUserImpl(private val database: Database) : LoginUser {
 
     override suspend fun updateUser(user: User) = database.cardDao().updateUser(user)
 
-    override fun login(password: String): Flow<Boolean> = database.cardDao().login(password)
+    override fun login(password: String): Flow<User> = database.cardDao().login(password)
 }

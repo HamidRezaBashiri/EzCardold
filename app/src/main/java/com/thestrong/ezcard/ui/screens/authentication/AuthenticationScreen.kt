@@ -13,7 +13,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.thestrong.ezcard.R
 import com.thestrong.ezcard.ui.theme.LoginBoxBackgroundDark
 import com.thestrong.ezcard.ui.theme.LoginBoxBackgroundLight

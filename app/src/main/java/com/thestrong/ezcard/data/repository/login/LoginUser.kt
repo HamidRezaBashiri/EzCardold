@@ -9,6 +9,6 @@ interface LoginUser {
 
     suspend fun updateUser(user: User)
 
-    fun login(password: String): Flow<Boolean>
+    fun login(password: String): Flow<User>
 
 }

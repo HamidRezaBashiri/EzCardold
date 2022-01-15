@@ -35,7 +35,7 @@ class AuthenticationViewModel(private val loginUser: LoginUser) : ViewModel() {
             }
             login.onSuccess {
                 it.value?.let { result ->
-                    if (result) {
+                    if (result.password == userPassword) {
                         _login.value = welcome
                     } else {
                         _login.value = "دوباره امتحان کنید"
