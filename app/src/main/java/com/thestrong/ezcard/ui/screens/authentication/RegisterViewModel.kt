@@ -1,11 +1,11 @@
-package com.thestrong.ezcard.ui.screens.register
+package com.thestrong.ezcard.ui.screens.authentication
 
 import androidx.lifecycle.*
 import com.thestrong.ezcard.data.model.User
 import com.thestrong.ezcard.data.repository.login.LoginUser
 import kotlinx.coroutines.launch
 
-class RegisterViewModel(private val loginUser: LoginUser) : ViewModel() {
+class AuthenticationViewModel(private val loginUser: LoginUser) : ViewModel() {
     private val errorOnFailure = "دوباره امتحان کنید"
     private val welcome = "خوش آمدید"
 

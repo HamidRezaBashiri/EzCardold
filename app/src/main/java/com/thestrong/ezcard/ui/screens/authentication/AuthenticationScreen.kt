@@ -1,20 +1,20 @@
-package com.thestrong.ezcard.ui.screens.register
+package com.thestrong.ezcard.ui.screens.authentication
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.thestrong.ezcard.R
 import com.thestrong.ezcard.ui.theme.LoginBoxBackgroundDark
 import com.thestrong.ezcard.ui.theme.LoginBoxBackgroundLight
 import com.thestrong.ezcard.ui.theme.SplashBackgroundDark
@@ -23,7 +23,7 @@ import org.koin.androidx.compose.viewModel
 
 
 @Composable
-fun SignInScreen(isFirstTimeLunch: Boolean = true) {
+fun AuthenticationScreen(isFirstTimeLunch: Boolean = true) {
     val spBackgroundColor: androidx.compose.ui.graphics.Color = if (isSystemInDarkTheme()) {
         SplashBackgroundDark
     } else {
@@ -53,7 +53,7 @@ fun SignupBox() {
 
 @Composable
 fun LoginBox() {
-    val viewModel by viewModel<RegisterViewModel>()
+    val viewModel by viewModel<AuthenticationViewModel>()
     val signInBoxBackground: androidx.compose.ui.graphics.Color
     var textFiledState by rememberSaveable {
         mutableStateOf("")
@@ -66,23 +66,27 @@ fun LoginBox() {
     }
     Column(
         modifier = Modifier
-            .background(MaterialTheme.colors.surface)
-            .padding(15.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .fillMaxWidth()
+            .padding(horizontal = 48.dp, vertical = 16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.Start
     ) {
-        Text(text = "سلام خوش آمدید")
-        OutlinedTextField(
-            value = textFiledState,
-            label = { Text(text = "کلمه عبور خود را وارد کنید") },
-            onValueChange = { textFiledState = it })
-        Button(onClick = {
-//            viewModel.signUp()
-        }, modifier = Modifier.padding(8.dp),
-            content = { Text(text = "test") })
+        Text(text = "سلام")
+        Text(text = "خوش آمدید")
     }
+
+    OutlinedTextField(
+        value = textFiledState,
+        label = { Text(text = "کلمه عبور خود را وارد کنید") },
+        onValueChange = { textFiledState = it })
+    Button(onClick = {}, modifier = Modifier.padding(16.dp),
+        content = { Text(text = "test") })
 }
+
 
 @Composable
 fun AnimatedLogo() {
-//    TODO("Not yet implemented")
+    Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+        Image(painter = painterResource(id = R.drawable.logo_light), contentDescription = "logo")
+    }
 }

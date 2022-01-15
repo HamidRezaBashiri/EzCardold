@@ -17,7 +17,7 @@ import com.thestrong.ezcard.ui.screens.home.HomeScreen
 import com.thestrong.ezcard.ui.screens.settings.SettingScreen
 import com.thestrong.ezcard.ui.common.BottomNavBar
 import com.thestrong.ezcard.ui.common.MyTopBar
-import com.thestrong.ezcard.ui.screens.register.SignInScreen
+import com.thestrong.ezcard.ui.screens.authentication.AuthenticationScreen
 import com.thestrong.ezcard.ui.theme.EZCardTheme
 
 class MainActivity : ComponentActivity() {
@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity() {
         NavHost(
             navController = navController,
 //            check to see if user added password to protect app
-            startDestination = if (true) "home" else "login",
+            startDestination = if (false) "home" else "login",
             modifier = modifier
         ) {
             composable(route = "home") {
@@ -56,13 +56,13 @@ class MainActivity : ComponentActivity() {
             }
             composable(route = "wallet") {
 //                CardListScreen()
-                SignInScreen()
+                AuthenticationScreen()
             }
             composable(route = "setting") {
                 SettingScreen()
             }
             composable(route = "login") {
-
+                AuthenticationScreen()
             }
             composable(route = "signup") {
 
