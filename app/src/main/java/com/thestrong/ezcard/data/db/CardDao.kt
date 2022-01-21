@@ -29,6 +29,9 @@ interface CardDao {
     @Update()
     suspend fun updateUser(user: User)
 
-    @Query("SELECT * FROM User WHERE password LIKE '%' || :password || '%'")
+    @Query("SELECT * FROM User WHERE password LIKE :password")
     fun login(password: String): Flow<User>
+
+    @Query("SELECT * FROM User")
+    fun checkUserIs(): Flow<List<User>>
 }

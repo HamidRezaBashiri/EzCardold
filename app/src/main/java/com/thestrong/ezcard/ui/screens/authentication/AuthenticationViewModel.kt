@@ -3,61 +3,88 @@ package com.thestrong.ezcard.ui.screens.authentication
 import androidx.lifecycle.*
 import com.thestrong.ezcard.data.model.User
 import com.thestrong.ezcard.data.repository.login.LoginUser
+import com.thestrong.ezcard.utils.Resource
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.viewModel
 
 class AuthenticationViewModel(private val loginUser: LoginUser) : ViewModel() {
     private val errorOnFailure = "دوباره امتحان کنید"
     private val welcome = "خوش آمدید"
+    private val successSignUp = "پسورد با موفقیت ثبت شد"
+    private val errorLogin = "رمز عبور اشتباه است"
+    private val successUpdatePassword = "رمز عبور با موفیت تغییر یافت!!"
 
-    private var _signUp = MutableLiveData<String>()
-    val signUpLiveData: LiveData<String> = _signUp
+    private val _operationsCheckUserIs = MutableLiveData<Resource<Boolean>>()
+    val operationsCheckUserIs: LiveData<Resource<Boolean>> = _operationsCheckUserIs
 
-    private var _login = MutableLiveData<String>()
-    val loginLiveData: LiveData<String> = _login
+    private val _operationsSignUp = MutableLiveData<Resource<String>>()
+    val operationsSignUp: LiveData<Resource<String>> = _operationsSignUp
+
+    private val _operationsLogin = MutableLiveData<Resource<String>>()
+    val operationsLogin: LiveData<Resource<String>> = _operationsLogin
+
+    init {
+        checkUserIs()
+    }
 
     fun signUp(user: User) {
         viewModelScope.launch {
+            _operationsSignUp.value = Resource.Loading()
             val response = runCatching {
                 loginUser.signIn(user)
             }
             response.onSuccess {
-                _signUp.value = "پسورد با موفقیت ثبت شد"
+                _operationsSignUp.value = Resource.Success(welcome)
             }.onFailure {
-                _signUp.value = errorOnFailure
+                _operationsSignUp.value = Resource.Error(errorOnFailure)
             }
+
         }
     }
 
-    fun checkUser(userPassword: String) {
+    fun loginUser(userPassword: String) {
         viewModelScope.launch {
-            val login = runCatching {
-                loginUser.login(userPassword).asLiveData()
-            }
-            login.onSuccess {
-                it.value?.let { result ->
-                    if (result.password == userPassword) {
-                        _login.value = welcome
-                    } else {
-                        _login.value = "دوباره امتحان کنید"
-                    }
+            _operationsLogin.value = Resource.Loading()
+            loginUser.login(userPassword).catch {
+                _operationsLogin.value = Resource.Error(errorOnFailure)
+            }.collect {
+                if(it==null)
+                {
+                    _operationsLogin.value =Resource.Success(errorLogin)
                 }
-
-            }.onFailure {
-                _login.value = errorOnFailure
+                else{
+                    _operationsLogin.value = Resource.Success(welcome)
+                }
             }
         }
-
     }
 
-    fun updatePassword(user: User): LiveData<String> = liveData {
-        val result = kotlin.runCatching {
+    fun updatePassword(user: User): LiveData<Resource<String>> = liveData {
+        emit(Resource.Loading())
+        val result = runCatching {
             loginUser.updateUser(user)
         }
         result.onSuccess {
-            emit("رمز عبور با موفیت تغییر یافت!!")
+            emit(Resource.Success(successUpdatePassword))
         }.onFailure {
-            emit(errorOnFailure)
+            emit(Resource.Error(errorOnFailure))
         }
     }
 
+    fun checkUserIs() {
+        viewModelScope.launch {
+            _operationsCheckUserIs.value = Resource.Loading()
+            loginUser.checkUserIs().catch { exception ->
+                _operationsCheckUserIs.value = Resource.Error(exception.toString())
+            }.collect {
+                if (it.isNullOrEmpty()) {
+                    _operationsCheckUserIs.value = Resource.Success(false)
+                } else {
+                   _operationsCheckUserIs.value = Resource.Success(true)
+                }
+            }
+        }
+    }
 }

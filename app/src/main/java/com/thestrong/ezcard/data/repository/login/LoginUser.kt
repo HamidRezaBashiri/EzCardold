@@ -11,4 +11,6 @@ interface LoginUser {
 
     fun login(password: String): Flow<User>
 
+    fun checkUserIs(): Flow<List<User>>
+
 }

@@ -65,7 +65,7 @@ dependencies {
     implementation "androidx.annotation:annotation:$annotation"
     implementation "androidx.constraintlayout:constraintlayout:$constraintlayout"
     implementation "androidx.navigation:navigation-compose:$navigation_compose"
-
+    implementation "androidx.compose.runtime:runtime-livedata:$livedata"
 
     implementation "androidx.core:core-splashscreen:$splashscreen"
     implementation "androidx.work:work-runtime:$runtime"
