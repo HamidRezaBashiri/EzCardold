@@ -1,7 +1,5 @@
 package com.thestrong.ezcard.ui.screens.authentication
 
-import android.content.Context
-import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -27,6 +26,8 @@ import com.thestrong.ezcard.R
 import com.thestrong.ezcard.data.model.User
 import com.thestrong.ezcard.ui.theme.*
 import com.thestrong.ezcard.utils.Resource
+import com.thestrong.ezcard.utils.ShowProgressBar
+import com.thestrong.ezcard.utils.showToast
 import org.koin.androidx.compose.getViewModel
 
 
@@ -69,6 +70,8 @@ fun LoginBox(viewModel: AuthenticationViewModel) {
     var textFiledState by rememberSaveable {
         mutableStateOf("")
     }
+    var isError by rememberSaveable { mutableStateOf(false) }
+
     var progressBar by rememberSaveable {
         mutableStateOf(false)
     }
@@ -103,7 +106,13 @@ fun LoginBox(viewModel: AuthenticationViewModel) {
 
         OutlinedTextField(
             value = textFiledState,
-            label = { Text(text = "کلمه عبور خود را وارد کنید") },
+            label = {
+                if (isError) {
+                    Text(stringResource(id = R.string.emptyText))
+                } else {
+                    Text(stringResource(id = R.string.login_filed))
+                }
+            },
             onValueChange = { textFiledState = it },
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = Purple500,
@@ -114,6 +123,7 @@ fun LoginBox(viewModel: AuthenticationViewModel) {
                 focusedLabelColor = Purple500,
                 unfocusedLabelColor = MaterialTheme.colors.onSurface,
             ),
+            isError = isError,
             visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             trailingIcon = {
@@ -128,27 +138,30 @@ fun LoginBox(viewModel: AuthenticationViewModel) {
                 }
             })
         Button(onClick = {
-            when (login) {
-                is Resource.Loading -> {
-                    progressBar = true
+            isError = false
+            if (textFiledState.isNotEmpty()) {
+                when (login) {
+                    is Resource.Loading -> {
+                        progressBar = true
+                    }
+                    is Resource.Success -> {
+                        progressBar = false
+                        showToast(
+                            context = context,
+                            text = (login as Resource.Success<String>).data.toString()
+                        )
+                    }
+                    is Resource.Error -> {
+                        progressBar = false
+                        showToast(
+                            context = context,
+                            text = (login as Resource.Error<String>).message.toString()
+                        )
+                    }
                 }
-                is Resource.Success -> {
-                    progressBar = false
 
-                        Toast.makeText(
-                            context,
-                            (login as Resource.Success<User>).data.toString(),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                }
-                is Resource.Error -> {
-                    progressBar = false
-                    Toast.makeText(
-                        context,
-                        (login as Resource.Error<String>).message,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+            } else {
+                isError = true
             }
         }, modifier = Modifier
             .padding(16.dp)
@@ -164,6 +177,10 @@ fun LoginBox(viewModel: AuthenticationViewModel) {
 fun Register(viewModel: AuthenticationViewModel) {
     val signInBoxBackground: androidx.compose.ui.graphics.Color
     val signUp by viewModel.operationsSignUp.observeAsState()
+    var isErrorPassword by rememberSaveable { mutableStateOf(false) }
+    var isNotEqualsTextField by rememberSaveable { mutableStateOf(false) }
+    var isErrorPasswordRepeate by rememberSaveable { mutableStateOf(false) }
+
     var textFiledState by rememberSaveable {
         mutableStateOf("")
     }
@@ -173,6 +190,11 @@ fun Register(viewModel: AuthenticationViewModel) {
     var passwordVisibility by remember {
         mutableStateOf(false)
     }
+    var progressBar by rememberSaveable {
+        mutableStateOf(false)
+    }
+
+    val context = LocalContext.current
 
     if (isSystemInDarkTheme()) {
         signInBoxBackground = LoginBoxBackgroundDark
@@ -199,8 +221,17 @@ fun Register(viewModel: AuthenticationViewModel) {
 
         OutlinedTextField(
             value = textFiledState,
-            label = { Text(text = "کلمه عبور خود را وارد کنید") },
+            label = {
+                if (isErrorPassword) {
+                    Text(stringResource(id = R.string.emptyText))
+                } else if(isNotEqualsTextField){
+                    Text(stringResource(id = R.string.isNotEquals))
+                }else {
+                    Text(stringResource(id = R.string.login_filed))
+                }
+            },
             onValueChange = { textFiledState = it },
+            isError = isErrorPassword || isNotEqualsTextField,
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = Purple500,
                 unfocusedBorderColor = MaterialTheme.colors.onSurface,
@@ -225,8 +256,17 @@ fun Register(viewModel: AuthenticationViewModel) {
             })
         OutlinedTextField(
             value = textFiledStateRepeat,
-            label = { Text(text = "کلمه عبور خود را تکرار کنید") },
+            label = {
+                if (isErrorPasswordRepeate) {
+                    Text(stringResource(id = R.string.emptyText))
+                } else if(isNotEqualsTextField){
+                    Text(stringResource(id = R.string.isNotEquals))
+                }else {
+                    Text(stringResource(id = R.string.login_filed))
+                }
+            },
             onValueChange = { textFiledStateRepeat = it },
+            isError = isErrorPasswordRepeate || isNotEqualsTextField,
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = Purple500,
                 unfocusedBorderColor = MaterialTheme.colors.onSurface,
@@ -250,18 +290,34 @@ fun Register(viewModel: AuthenticationViewModel) {
                 }
             })
         Button(onClick = {
-            val user = User(textFiledState, textFiledStateRepeat)
-            viewModel.signUp(user)
-            signUp?.let {
-                when (it) {
-                    is Resource.Loading -> {
-//                        ShowProgressBar()
-                    }
-                    is Resource.Success -> {
-
-                    }
-                    is Resource.Error -> {
-
+            if (textFiledState.isNullOrEmpty()) {
+                isErrorPassword = true
+            } else if (textFiledStateRepeat.isNullOrEmpty()) {
+                isErrorPassword = false
+                isErrorPasswordRepeate = true
+            } else if (textFiledState != textFiledStateRepeat || textFiledStateRepeat != textFiledState) {
+                isErrorPassword = false
+                isErrorPasswordRepeate = false
+                isNotEqualsTextField = true
+            } else {
+                isErrorPassword = false
+                isErrorPasswordRepeate = false
+                isNotEqualsTextField = false
+                val user = User(textFiledState, textFiledStateRepeat)
+                viewModel.signUp(user)
+                signUp?.let {signUp->
+                    when (signUp) {
+                        is Resource.Loading -> {
+                            progressBar = true
+                        }
+                        is Resource.Success -> {
+                            progressBar = false
+                            showToast(context,signUp.data.toString())
+                        }
+                        is Resource.Error -> {
+                            progressBar = false
+                            showToast(context,signUp.message.toString())
+                        }
                     }
                 }
             }
@@ -269,6 +325,10 @@ fun Register(viewModel: AuthenticationViewModel) {
             .padding(16.dp)
             .clip(RoundedCornerShape(12.dp)),
             content = { Text(text = "ورود") })
+    }
+    if (progressBar)
+    {
+        ShowProgressBar()
     }
 
 }
@@ -288,13 +348,4 @@ fun AnimatedLogo() {
     }
 }
 
-@Composable
-fun ShowProgressBar() {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        LinearProgressIndicator()
-    }
-}
+

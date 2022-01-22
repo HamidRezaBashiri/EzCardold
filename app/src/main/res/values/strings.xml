@@ -12,4 +12,7 @@
 
     <string name="show_card_details">نمایش جزییات کارت</string>
     <string name="setting">تنظیمات</string>
+    <string name="emptyText">فیلد را پر کنید!!</string>
+    <string name="login_filed">کلمه عبور خود را وارد کنید</string>
+    <string name="isNotEquals">رمز عبور ها یکسان نیست!!</string>
 </resources>

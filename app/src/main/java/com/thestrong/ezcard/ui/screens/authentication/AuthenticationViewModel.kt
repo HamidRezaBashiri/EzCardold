@@ -73,7 +73,7 @@ class AuthenticationViewModel(private val loginUser: LoginUser) : ViewModel() {
         }
     }
 
-    fun checkUserIs() {
+    private fun checkUserIs() {
         viewModelScope.launch {
             _operationsCheckUserIs.value = Resource.Loading()
             loginUser.checkUserIs().catch { exception ->
