@@ -319,6 +319,7 @@ fun Register(viewModel: AuthenticationViewModel) {
                         is Resource.Success -> {
                             progressBar = false
                             showToast(context, signUp.data.toString())
+
                         }
                         is Resource.Error -> {
                             progressBar = false

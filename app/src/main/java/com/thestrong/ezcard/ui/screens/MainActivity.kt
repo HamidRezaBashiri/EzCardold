@@ -34,16 +34,16 @@ class MainActivity : ComponentActivity() {
         setContent {
 
             EZCardTheme() {
+
+                val viewModel: AuthenticationViewModel = getViewModel()
+                val isLogin by viewModel.operationsCheckUserIs.observeAsState()
                 val navController = rememberNavController()
                 CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
                     Surface(color = MaterialTheme.colors.background) {
-                        val viewModel: AuthenticationViewModel = getViewModel()
-                        val isLogin by viewModel.operationsCheckUserIs.observeAsState()
 
-                        var userLoggedIn = true
-                        if (userLoggedIn) {
+
+                        if (isLogin?.data == false) {
                             EzCardNavHost(navController = navController)
-                            userLoggedIn = false
                         } else {
                             Scaffold(
                                 topBar = { MyTopBar() },
@@ -62,7 +62,7 @@ class MainActivity : ComponentActivity() {
 
     //    setup navigation
     @Composable
-    private fun EzCardNavHost(
+     fun EzCardNavHost(
         navController: NavHostController, modifier: Modifier = Modifier
     ) {
         val viewModel: AuthenticationViewModel = getViewModel()
@@ -71,7 +71,7 @@ class MainActivity : ComponentActivity() {
             NavHost(
                 navController = navController,
 //            check to see if user added password to protect app
-                startDestination = if (login.data == true) "home" else "login",
+                startDestination = "login",
                 modifier = modifier
             ) {
                 composable(route = "home") {
@@ -80,7 +80,6 @@ class MainActivity : ComponentActivity() {
                 }
                 composable(route = "wallet") {
 //                CardListScreen()
-                    AuthenticationScreen(login.data)
                 }
                 composable(route = "setting") {
                     SettingScreen()
