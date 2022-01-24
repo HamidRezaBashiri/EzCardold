@@ -16,6 +16,8 @@ class AuthenticationViewModel(private val loginUser: LoginUser) : ViewModel() {
     private val errorLogin = "رمز عبور اشتباه است"
     private val successUpdatePassword = "رمز عبور با موفیت تغییر یافت!!"
 
+    public val isUserHaveAccess = MutableLiveData<Boolean>(false)
+
     private val _operationsCheckUserIs = MutableLiveData<Resource<Boolean>>()
     val operationsCheckUserIs: LiveData<Resource<Boolean>> = _operationsCheckUserIs
 

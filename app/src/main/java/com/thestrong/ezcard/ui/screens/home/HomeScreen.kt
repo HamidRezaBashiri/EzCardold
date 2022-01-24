@@ -24,6 +24,7 @@ fun HomeScreen() {
 // A surface container using the 'background' color from the theme
 //Main Column
     val viewModel by viewModel<HomeViewModel>()
+//    val
 
     Column(modifier = Modifier.fillMaxSize()) {
 //box of toolbar and card list
@@ -35,6 +36,9 @@ fun HomeScreen() {
             LazyRow() {
 
 //            TODO    after addeing card list  un comment this for show ing rv
+
+
+
 //                items(
 //                    items = CreditCard,
 //                    itemContent = {
