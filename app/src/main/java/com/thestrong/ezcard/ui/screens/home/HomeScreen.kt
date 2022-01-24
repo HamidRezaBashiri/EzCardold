@@ -8,9 +8,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.thestrong.ezcard.R
 import com.thestrong.ezcard.data.model.CreditCard
 import com.thestrong.ezcard.ui.common.HomeButton
 
@@ -22,14 +25,25 @@ fun HomeScreen() {
 
     Column(modifier = Modifier.fillMaxSize()) {
 //                        box of toolbar and card list
+//        val cardList
+
         Box(
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth()
         ) {
+            LazyRow() {
 
+//            TODO    after addeing card list  un comment this for show ing rv
+//                items(
+//                    items = CreditCard,
+//                    itemContent = {
+//                        CardItem( card =  it)
+//                    })
+            }
 
         }
+
         Box(
             modifier = Modifier
                 .weight(2f)
@@ -42,34 +56,32 @@ fun HomeScreen() {
             Column(modifier = Modifier.fillMaxSize()) {
 
                 Row(modifier = Modifier.fillMaxWidth()) {
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            text = "description",
-                            modifier = Modifier
-                                .padding(16.dp)
-                                .fillMaxWidth()
-                                .clip(RoundedCornerShape(15.dp))
-                                .background(MaterialTheme.colors.onPrimary)
+                    Text(
+                        text = "description",
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .fillMaxWidth()
+                            .height(150.dp)
+                            .clip(RoundedCornerShape(15.dp))
+                            .background(MaterialTheme.colors.onPrimary)
 
-                        )
-                    }
+                    )
                 }
-                Row(modifier = Modifier.fillMaxWidth()) {
-                    Column(modifier = Modifier.weight(1f)) {
-                        HomeButton(
-                            modifier = Modifier.padding(2.dp),
-                            "نمایش جزيیات کارت",
-                            "برای نمایش جزییات کارت کلیک کنید "
-                        )
-                    }
-                }
-                Row(modifier = Modifier.fillMaxWidth()) {
-                    Column(modifier = Modifier.weight(1f)) {
-                        HomeButton( modifier = Modifier.padding(2.dp),
-                            "نمایش جزيیات کارت",
-                            "برای نمایش جزییات کارت کلیک کنید ")
-                    }
-                }
+                HomeButton(
+                    modifier = Modifier.padding(2.dp),
+                    "نمایش جزيیات کارت",
+                    "برای نمایش جزییات کارت کلیک کنید ",
+                    id = R.drawable.ic_card_details
+
+                )
+
+                HomeButton(
+                    modifier = Modifier.padding(2.dp),
+                    "اشتراک گذاری سریع",
+                    "برای اشتراک گزاری سری کلیک کنید ",
+                    id = R.drawable.ic_card_details
+                )
+
 
             }
         }

@@ -8,4 +8,8 @@ import com.thestrong.ezcard.data.model.User
 @Database(entities = [CreditCard::class,User::class], version = 1, exportSchema = false)
 abstract class Database : RoomDatabase() {
     abstract fun cardDao(): CardDao
+
+    companion object{
+
+    }
 }

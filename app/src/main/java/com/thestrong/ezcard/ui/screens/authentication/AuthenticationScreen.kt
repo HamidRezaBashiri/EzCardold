@@ -1,6 +1,8 @@
 package com.thestrong.ezcard.ui.screens.authentication
 
-import androidx.compose.foundation.*
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -14,9 +16,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -224,9 +228,9 @@ fun Register(viewModel: AuthenticationViewModel) {
             label = {
                 if (isErrorPassword) {
                     Text(stringResource(id = R.string.emptyText))
-                } else if(isNotEqualsTextField){
+                } else if (isNotEqualsTextField) {
                     Text(stringResource(id = R.string.isNotEquals))
-                }else {
+                } else {
                     Text(stringResource(id = R.string.login_filed))
                 }
             },
@@ -245,13 +249,14 @@ fun Register(viewModel: AuthenticationViewModel) {
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             trailingIcon = {
                 val image = if (passwordVisibility)
-                    Icons.Filled.Menu
-                else Icons.Filled.ShoppingCart
+                    R.drawable.ic_visibility
+                else R.drawable.ic_visibility_off
+
 
                 IconButton(onClick = {
                     passwordVisibility = !passwordVisibility
                 }) {
-                    Icon(imageVector = image, "")
+                    Icon(imageVector = ImageVector.vectorResource(id = image), "")
                 }
             })
         OutlinedTextField(
@@ -259,9 +264,9 @@ fun Register(viewModel: AuthenticationViewModel) {
             label = {
                 if (isErrorPasswordRepeate) {
                     Text(stringResource(id = R.string.emptyText))
-                } else if(isNotEqualsTextField){
+                } else if (isNotEqualsTextField) {
                     Text(stringResource(id = R.string.isNotEquals))
-                }else {
+                } else {
                     Text(stringResource(id = R.string.login_filed))
                 }
             },
@@ -280,8 +285,9 @@ fun Register(viewModel: AuthenticationViewModel) {
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             trailingIcon = {
                 val image = if (passwordVisibility)
-                    Icons.Filled.Menu
-                else Icons.Filled.ShoppingCart
+                    ImageVector.vectorResource(id = R.drawable.ic_visibility)
+                else ImageVector.vectorResource(id = R.drawable.ic_visibility_off)
+
 
                 IconButton(onClick = {
                     passwordVisibility = !passwordVisibility
@@ -305,18 +311,18 @@ fun Register(viewModel: AuthenticationViewModel) {
                 isNotEqualsTextField = false
                 val user = User(textFiledState, textFiledStateRepeat)
                 viewModel.signUp(user)
-                signUp?.let {signUp->
+                signUp?.let { signUp ->
                     when (signUp) {
                         is Resource.Loading -> {
                             progressBar = true
                         }
                         is Resource.Success -> {
                             progressBar = false
-                            showToast(context,signUp.data.toString())
+                            showToast(context, signUp.data.toString())
                         }
                         is Resource.Error -> {
                             progressBar = false
-                            showToast(context,signUp.message.toString())
+                            showToast(context, signUp.message.toString())
                         }
                     }
                 }
@@ -326,8 +332,7 @@ fun Register(viewModel: AuthenticationViewModel) {
             .clip(RoundedCornerShape(12.dp)),
             content = { Text(text = "ورود") })
     }
-    if (progressBar)
-    {
+    if (progressBar) {
         ShowProgressBar()
     }
 

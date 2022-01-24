@@ -36,6 +36,7 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
                     Surface(color = MaterialTheme.colors.background) {
+
                         Scaffold(
                             topBar = { MyTopBar() },
                             bottomBar = { BottomNavBar(navController = navController) }) {
@@ -62,7 +63,7 @@ class MainActivity : ComponentActivity() {
             NavHost(
                 navController = navController,
 //            check to see if user added password to protect app
-                startDestination = if (false) "home" else "login",
+                startDestination = if (login.data == true) "home" else "login",
                 modifier = modifier
             ) {
                 composable(route = "home") {
