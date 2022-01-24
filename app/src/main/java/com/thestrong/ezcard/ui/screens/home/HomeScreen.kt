@@ -21,11 +21,9 @@ import com.thestrong.ezcard.ui.common.HomeButton
 @Composable
 fun HomeScreen() {
     // A surface container using the 'background' color from the theme
-//            Main Column
 
     Column(modifier = Modifier.fillMaxSize()) {
-//                        box of toolbar and card list
-//        val cardList
+//      box of toolbar and card list
 
         Box(
             modifier = Modifier

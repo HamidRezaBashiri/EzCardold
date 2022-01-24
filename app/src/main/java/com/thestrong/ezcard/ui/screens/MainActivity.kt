@@ -18,12 +18,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.thestrong.ezcard.ui.screens.home.HomeScreen
-import com.thestrong.ezcard.ui.screens.settings.SettingScreen
 import com.thestrong.ezcard.ui.common.BottomNavBar
 import com.thestrong.ezcard.ui.common.MyTopBar
 import com.thestrong.ezcard.ui.screens.authentication.AuthenticationScreen
 import com.thestrong.ezcard.ui.screens.authentication.AuthenticationViewModel
+import com.thestrong.ezcard.ui.screens.home.HomeScreen
+import com.thestrong.ezcard.ui.screens.settings.SettingScreen
 import com.thestrong.ezcard.ui.theme.EZCardTheme
 import org.koin.androidx.compose.getViewModel
 
@@ -37,12 +37,17 @@ class MainActivity : ComponentActivity() {
                 CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
                     Surface(color = MaterialTheme.colors.background) {
 
-                        Scaffold(
-                            topBar = { MyTopBar() },
-                            bottomBar = { BottomNavBar(navController = navController) }) {
-                            EzCardNavHost(navController)
+                        var userLoggedIn = true
+                        if (userLoggedIn) {
+                            EzCardNavHost(navController = navController)
+                            userLoggedIn = false
+                        } else {
+                            Scaffold(
+                                topBar = { MyTopBar() },
+                                bottomBar = { BottomNavBar(navController = navController) }) {
+                                EzCardNavHost(navController)
+                            }
                         }
-
                     }
                 }
             }
@@ -53,12 +58,12 @@ class MainActivity : ComponentActivity() {
 
     //    setup navigation
     @Composable
-    private fun EzCardNavHost(
+    fun EzCardNavHost(
         navController: NavHostController, modifier: Modifier = Modifier
     ) {
         val viewModel: AuthenticationViewModel = getViewModel()
         val isLogin by viewModel.operationsCheckUserIs.observeAsState()
-        isLogin?.let {login->
+        isLogin?.let { login ->
 
             NavHost(
                 navController = navController,
