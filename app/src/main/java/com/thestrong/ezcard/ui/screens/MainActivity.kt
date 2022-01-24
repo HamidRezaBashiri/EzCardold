@@ -32,10 +32,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         installSplashScreen()
         setContent {
+
             EZCardTheme() {
                 val navController = rememberNavController()
                 CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
                     Surface(color = MaterialTheme.colors.background) {
+                        val viewModel: AuthenticationViewModel = getViewModel()
+                        val isLogin by viewModel.operationsCheckUserIs.observeAsState()
 
                         Scaffold(
                             topBar = { MyTopBar() },
@@ -59,7 +62,6 @@ class MainActivity : ComponentActivity() {
         val viewModel: AuthenticationViewModel = getViewModel()
         val isLogin by viewModel.operationsCheckUserIs.observeAsState()
         isLogin?.let {login->
-
             NavHost(
                 navController = navController,
 //            check to see if user added password to protect app

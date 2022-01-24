@@ -154,6 +154,7 @@ fun LoginBox(viewModel: AuthenticationViewModel) {
                             context = context,
                             text = (login as Resource.Success<String>).data.toString()
                         )
+
                     }
                     is Resource.Error -> {
                         progressBar = false
@@ -319,6 +320,7 @@ fun Register(viewModel: AuthenticationViewModel) {
                         is Resource.Success -> {
                             progressBar = false
                             showToast(context, signUp.data.toString())
+
                         }
                         is Resource.Error -> {
                             progressBar = false

@@ -18,7 +18,7 @@ interface CardDao {
     suspend fun deleteAllCard()
 
     @Delete()
-    suspend fun deleteCard(user: User)
+    suspend fun deleteCard(creditCard: CreditCard)
 
     @Update()
     suspend fun updateCard(creditCard: CreditCard)
