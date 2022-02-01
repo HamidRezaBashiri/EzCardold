@@ -32,7 +32,6 @@ import com.thestrong.ezcard.ui.theme.*
 import com.thestrong.ezcard.utils.Resource
 import com.thestrong.ezcard.utils.ShowProgressBar
 import com.thestrong.ezcard.utils.showToast
-import org.koin.androidx.compose.getViewModel
 
 
 @Composable
@@ -40,7 +39,6 @@ fun AuthenticationScreen(
     viewModel: AuthenticationViewModel,
     navigateToHome: () -> Unit
 ) {
-    val data by viewModel.operationsCheckUserIs.observeAsState()
     val isUserRegistered by viewModel.operationsCheckUserIs.observeAsState()
     val spBackgroundColor: androidx.compose.ui.graphics.Color = if (isSystemInDarkTheme()) {
         SplashBackgroundDark
@@ -58,10 +56,10 @@ fun AuthenticationScreen(
         verticalArrangement = Arrangement.Center
     ) {
         AnimatedLogo()
-        if (isUserRegistered?.data == true) {
-            LoginBox(viewModel,navigateToHome)
+        if (isUserRegistered?.data != true) {
+            Register(viewModel, navigateToHome)
         } else {
-            Register(viewModel)
+            LoginBox(viewModel, navigateToHome)
         }
     }
 }
@@ -71,27 +69,15 @@ fun AuthenticationScreen(
 fun LoginBox(
     viewModel: AuthenticationViewModel, navigateToHome: () -> Unit
 ) {
-    val signInBoxBackground: androidx.compose.ui.graphics.Color
     val context = LocalContext.current
-    var textFiledState by rememberSaveable {
-        mutableStateOf("")
-    }
+    var textFiledState by rememberSaveable { mutableStateOf("") }
     var isError by rememberSaveable { mutableStateOf(false) }
+    var progressBar by rememberSaveable { mutableStateOf(false) }
+    var passwordVisibility by remember { mutableStateOf(false) }
 
-    var progressBar by rememberSaveable {
-        mutableStateOf(false)
-    }
-    var passwordVisibility by remember {
-        mutableStateOf(false)
-    }
     viewModel.loginUser(textFiledState)
     val login by viewModel.operationsLogin.observeAsState()
 
-    if (isSystemInDarkTheme()) {
-        signInBoxBackground = LoginBoxBackgroundDark
-    } else {
-        signInBoxBackground = LoginBoxBackgroundLight
-    }
     Column(
         modifier = Modifier
             .padding(16.dp)
@@ -134,13 +120,13 @@ fun LoginBox(
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             trailingIcon = {
                 val image = if (passwordVisibility)
-                    Icons.Filled.Menu
-                else Icons.Filled.ShoppingCart
+                    R.drawable.ic_visibility
+                else R.drawable.ic_visibility_off
 
                 IconButton(onClick = {
                     passwordVisibility = !passwordVisibility
                 }) {
-                    Icon(imageVector = image, "")
+                    Icon(imageVector = ImageVector.vectorResource(id = image), "")
                 }
             })
         Button(onClick = {
@@ -152,10 +138,6 @@ fun LoginBox(
                     }
                     is Resource.Success -> {
                         progressBar = false
-                        showToast(
-                            context = context,
-                            text = (login as Resource.Success<String>).data.toString()
-                        )
                         navigateToHome()
                     }
                     is Resource.Error -> {
@@ -181,34 +163,18 @@ fun LoginBox(
 }
 
 @Composable
-fun Register(viewModel: AuthenticationViewModel) {
-    val signInBoxBackground: androidx.compose.ui.graphics.Color
+fun Register(viewModel: AuthenticationViewModel,navigateToHome: () -> Unit) {
     val signUp by viewModel.operationsSignUp.observeAsState()
     var isErrorPassword by rememberSaveable { mutableStateOf(false) }
     var isNotEqualsTextField by rememberSaveable { mutableStateOf(false) }
     var isErrorPasswordRepeate by rememberSaveable { mutableStateOf(false) }
-
-
-    var textFiledState by rememberSaveable {
-        mutableStateOf("")
-    }
-    var textFiledStateRepeat by rememberSaveable {
-        mutableStateOf("")
-    }
-    var passwordVisibility by remember {
-        mutableStateOf(false)
-    }
-    var progressBar by rememberSaveable {
-        mutableStateOf(false)
-    }
+    var textFiledState by rememberSaveable { mutableStateOf("") }
+    var textFiledStateRepeat by rememberSaveable { mutableStateOf("") }
+    var passwordVisibility by remember { mutableStateOf(false) }
+    var progressBar by rememberSaveable { mutableStateOf(false) }
 
     val context = LocalContext.current
 
-    if (isSystemInDarkTheme()) {
-        signInBoxBackground = LoginBoxBackgroundDark
-    } else {
-        signInBoxBackground = LoginBoxBackgroundLight
-    }
     Column(
         modifier = Modifier
             .padding(16.dp)
@@ -289,14 +255,14 @@ fun Register(viewModel: AuthenticationViewModel) {
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             trailingIcon = {
                 val image = if (passwordVisibility)
-                    ImageVector.vectorResource(id = R.drawable.ic_visibility)
-                else ImageVector.vectorResource(id = R.drawable.ic_visibility_off)
+                   R.drawable.ic_visibility
+                else R.drawable.ic_visibility_off
 
 
                 IconButton(onClick = {
                     passwordVisibility = !passwordVisibility
                 }) {
-                    Icon(imageVector = image, "")
+                    Icon(imageVector = ImageVector.vectorResource(id = image), "")
                 }
             })
         Button(onClick = {
@@ -322,9 +288,7 @@ fun Register(viewModel: AuthenticationViewModel) {
                         }
                         is Resource.Success -> {
                             progressBar = false
-                            showToast(context, signUp.data.toString())
-                            viewModel.isUserHaveAccess.value = true
-
+                            navigateToHome()
 
                         }
                         is Resource.Error -> {
