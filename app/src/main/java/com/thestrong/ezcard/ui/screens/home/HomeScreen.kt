@@ -20,11 +20,8 @@ import org.koin.androidx.compose.viewModel
 
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(viewModel: HomeViewModel) {
 // A surface container using the 'background' color from the theme
-//Main Column
-    val viewModel by viewModel<HomeViewModel>()
-//    val
 
     Column(modifier = Modifier.fillMaxSize()) {
 //box of toolbar and card list

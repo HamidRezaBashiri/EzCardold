@@ -1,6 +1,6 @@
 package com.thestrong.ezcard.data.repository.login
 
-import com.thestrong.ezcard.data.db.Database
+import com.thestrong.ezcard.data.data_source.local.db.Database
 import com.thestrong.ezcard.data.model.User
 import kotlinx.coroutines.flow.Flow
 

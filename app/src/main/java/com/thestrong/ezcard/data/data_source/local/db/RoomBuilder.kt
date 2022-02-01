@@ -1,4 +1,4 @@
-package com.thestrong.ezcard.data.db
+package com.thestrong.ezcard.data.data_source.local.db
 
 import android.content.Context
 import androidx.room.Room

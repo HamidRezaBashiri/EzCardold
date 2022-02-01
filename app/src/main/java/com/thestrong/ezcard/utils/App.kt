@@ -1,7 +1,7 @@
 package com.thestrong.ezcard.utils
 
 import android.app.Application
-import com.thestrong.ezcard.data.db.RoomBuilder
+import com.thestrong.ezcard.data.data_source.local.db.RoomBuilder
 import com.thestrong.ezcard.data.repository.card.Card
 import com.thestrong.ezcard.data.repository.card.CardRepositoryImpl
 import com.thestrong.ezcard.data.repository.login.LoginUser

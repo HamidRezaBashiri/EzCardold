@@ -15,7 +15,7 @@ import androidx.compose.ui.res.stringResource
 import com.thestrong.ezcard.R
 
 @Composable
-fun SettingScreen() {
+fun SettingScreen(viewModel: SettingsViewModel) {
     Text(text = stringResource(id = R.string.setting))
 
 }

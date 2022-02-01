@@ -7,7 +7,6 @@ import com.thestrong.ezcard.utils.Resource
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import org.koin.androidx.compose.viewModel
 
 class AuthenticationViewModel(private val loginUser: LoginUser) : ViewModel() {
     private val errorOnFailure = "دوباره امتحان کنید"
@@ -16,7 +15,8 @@ class AuthenticationViewModel(private val loginUser: LoginUser) : ViewModel() {
     private val errorLogin = "رمز عبور اشتباه است"
     private val successUpdatePassword = "رمز عبور با موفیت تغییر یافت!!"
 
-    public val isUserHaveAccess = MutableLiveData<Boolean>(false)
+    private val _isUserHaveAccess = MutableLiveData<Boolean>(false)
+    val isUserHaveAccess: MutableLiveData<Boolean> = _isUserHaveAccess
 
     private val _operationsCheckUserIs = MutableLiveData<Resource<Boolean>>()
     val operationsCheckUserIs: LiveData<Resource<Boolean>> = _operationsCheckUserIs
@@ -52,11 +52,9 @@ class AuthenticationViewModel(private val loginUser: LoginUser) : ViewModel() {
             loginUser.login(userPassword).catch {
                 _operationsLogin.value = Resource.Error(errorOnFailure)
             }.collect {
-                if(it==null)
-                {
-                    _operationsLogin.value =Resource.Success(errorLogin)
-                }
-                else{
+                if (it == null) {
+                    _operationsLogin.value = Resource.Success(errorLogin)
+                } else {
                     _operationsLogin.value = Resource.Success(welcome)
                 }
             }
@@ -84,9 +82,14 @@ class AuthenticationViewModel(private val loginUser: LoginUser) : ViewModel() {
                 if (it.isNullOrEmpty()) {
                     _operationsCheckUserIs.value = Resource.Success(false)
                 } else {
-                   _operationsCheckUserIs.value = Resource.Success(true)
+                    _operationsCheckUserIs.value = Resource.Success(true)
                 }
             }
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+
     }
 }

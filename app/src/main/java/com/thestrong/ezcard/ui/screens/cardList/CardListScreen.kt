@@ -6,8 +6,8 @@ import androidx.compose.runtime.Composable
 import com.thestrong.ezcard.ui.screens.addCard.AddCardScreen
 
 @Composable
-fun CardListScreen() {
+fun CardListScreen(viewModel: CardListViewModel) {
     Text(text = "wallet")
-    AddCardScreen()
+//    AddCardScreen()
 
 }

@@ -5,7 +5,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 
 @Composable
-fun AddCardScreen() {
+fun AddCardScreen(viewModel: AddCardViewModel) {
 
     Dialog(onDismissRequest = { /*TODO*/ }, properties = DialogProperties()) {
 

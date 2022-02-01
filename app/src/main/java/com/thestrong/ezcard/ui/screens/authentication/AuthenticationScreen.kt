@@ -37,11 +37,11 @@ import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun AuthenticationScreen(
-    isFirstTimeLunch: Boolean?,
-    viewModel: AuthenticationViewModel = getViewModel()
+    viewModel: AuthenticationViewModel,
+    navigateToHome: () -> Unit
 ) {
     val data by viewModel.operationsCheckUserIs.observeAsState()
-
+    val isUserRegistered by viewModel.operationsCheckUserIs.observeAsState()
     val spBackgroundColor: androidx.compose.ui.graphics.Color = if (isSystemInDarkTheme()) {
         SplashBackgroundDark
     } else {
@@ -58,8 +58,8 @@ fun AuthenticationScreen(
         verticalArrangement = Arrangement.Center
     ) {
         AnimatedLogo()
-        if (isFirstTimeLunch == true) {
-            LoginBox(viewModel)
+        if (isUserRegistered?.data == true) {
+            LoginBox(viewModel,navigateToHome)
         } else {
             Register(viewModel)
         }
@@ -68,7 +68,9 @@ fun AuthenticationScreen(
 
 
 @Composable
-fun LoginBox(viewModel: AuthenticationViewModel) {
+fun LoginBox(
+    viewModel: AuthenticationViewModel, navigateToHome: () -> Unit
+) {
     val signInBoxBackground: androidx.compose.ui.graphics.Color
     val context = LocalContext.current
     var textFiledState by rememberSaveable {
@@ -154,6 +156,7 @@ fun LoginBox(viewModel: AuthenticationViewModel) {
                             context = context,
                             text = (login as Resource.Success<String>).data.toString()
                         )
+                        navigateToHome()
                     }
                     is Resource.Error -> {
                         progressBar = false
@@ -184,6 +187,7 @@ fun Register(viewModel: AuthenticationViewModel) {
     var isErrorPassword by rememberSaveable { mutableStateOf(false) }
     var isNotEqualsTextField by rememberSaveable { mutableStateOf(false) }
     var isErrorPasswordRepeate by rememberSaveable { mutableStateOf(false) }
+
 
     var textFiledState by rememberSaveable {
         mutableStateOf("")
@@ -319,6 +323,8 @@ fun Register(viewModel: AuthenticationViewModel) {
                         is Resource.Success -> {
                             progressBar = false
                             showToast(context, signUp.data.toString())
+                            viewModel.isUserHaveAccess.value = true
+
 
                         }
                         is Resource.Error -> {
