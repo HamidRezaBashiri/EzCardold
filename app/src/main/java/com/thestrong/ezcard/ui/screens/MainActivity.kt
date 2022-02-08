@@ -47,12 +47,14 @@ class MainActivity : ComponentActivity() {
 
         Scaffold(
             topBar = {
-                if (currentRoute == "authentication") {
-                } else MyTopBar()
+                if (currentRoute == "home" || currentRoute == "wallet" || currentRoute == "settings"  ) {
+                    MyTopBar()
+                } else {}
             },
             bottomBar = {
-                if (currentRoute == "authentication") {
-                } else BottomNavBar(navController = navController)
+                if (currentRoute == "home" || currentRoute == "wallet" || currentRoute == "settings" ) {
+                    BottomNavBar(navController = navController)
+                } else {}
             }) {
             EzCardNavGraph(navController)
         }
