@@ -13,6 +13,7 @@ import com.thestrong.ezcard.ui.screens.addCard.AddCardScreen
 import com.thestrong.ezcard.ui.screens.addCard.AddCardViewModel
 import com.thestrong.ezcard.ui.screens.authentication.AuthenticationScreen
 import com.thestrong.ezcard.ui.screens.authentication.AuthenticationViewModel
+import com.thestrong.ezcard.ui.screens.cardList.CardListScreen
 import com.thestrong.ezcard.ui.screens.home.HomeScreen
 import com.thestrong.ezcard.ui.screens.home.HomeViewModel
 import com.thestrong.ezcard.ui.screens.settings.SettingScreen
@@ -59,8 +60,7 @@ fun EzCardNavGraph(
             HomeScreen(viewModel = viewModel)
         }
         composable(route = "wallet") {
-//            val viewModel:CardListViewModel = getViewModel()
-//            CardListScreen(viewModel = viewModel)
+            CardListScreen()
         }
         composable(route = "setting") {
             val viewModel: SettingsViewModel = getViewModel()

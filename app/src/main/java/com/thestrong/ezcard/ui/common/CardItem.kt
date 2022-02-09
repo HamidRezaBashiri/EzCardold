@@ -18,11 +18,10 @@ import androidx.compose.ui.unit.sp
 import com.thestrong.ezcard.R
 
 @Composable
-@Preview
 fun CardItem() {
 
     Column(
-        modifier = Modifier
+        modifier = Modifier.padding(8.dp)
             .clip(RoundedCornerShape(16))
             .background(color = Color.Cyan)
             .fillMaxWidth()

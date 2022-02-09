@@ -15,6 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.thestrong.ezcard.R
 import com.thestrong.ezcard.data.model.CreditCard
+import com.thestrong.ezcard.ui.common.CardItem
 import com.thestrong.ezcard.ui.common.HomeButton
 import org.koin.androidx.compose.viewModel
 
@@ -31,16 +32,11 @@ fun HomeScreen(viewModel: HomeViewModel) {
                 .fillMaxWidth()
         ) {
             LazyRow() {
-
-//            TODO    after addeing card list  un comment this for show ing rv
-
-
-
-//                items(
-//                    items = CreditCard,
-//                    itemContent = {
-//                        CardItem( card =  it)
-//                    })
+                items(
+                    items = Array(3,{}),
+                    itemContent = {
+                        CardItem()
+                    })
             }
 
         }
@@ -96,14 +92,11 @@ fun HomeScreen(viewModel: HomeViewModel) {
 private fun CardList(cardList: ArrayList<CreditCard>) {
     LazyRow(modifier = Modifier.padding(vertical = 4.dp)) {
         items(items = cardList) { card ->
-            CardItem(card)
+
         }
     }
 
 }
 
-@Composable
-private fun CardItem(card: CreditCard) {
 
-}
 
